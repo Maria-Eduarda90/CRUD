@@ -15,4 +15,14 @@ export class UserRepository implements UserInterfaceRepository {
 
     return createdUser;
   }
+
+  async findByEmail(email: string): Promise<User | null> {
+    const byEmail = await prisma.user.findFirst({
+      where: {
+        email,
+      },
+    });
+
+    return byEmail || null;
+  }
 }
