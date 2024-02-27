@@ -8,21 +8,24 @@ datasource db {
 }
 
 model User {
-  id        String   @id @default(uuid())
+  id        String     @id @default(uuid())
   name      String
   email     String
   password  String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  Contacts  Contacts[]
 
   @@map("users")
 }
 
 model Contacts {
-  id    String @id @default(uuid())
-  name  String
-  email String
-  phone String
+  id     String @id @default(uuid())
+  name   String
+  email  String
+  phone  Int
+  userId String
+  user   User   @relation(fields: [userId], references: [id])
 
   @@map("contacts")
 }
