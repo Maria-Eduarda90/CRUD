@@ -13,7 +13,7 @@ export async function userRoutes(fastify: FastifyInstance) {
         email,
         password,
       });
-      return reply.send(data);
+      return reply.status(201).send(data);
     } catch (error) {
       reply.send(error);
     }
@@ -25,7 +25,7 @@ export async function userRoutes(fastify: FastifyInstance) {
         email,
         password,
       });
-      return reply.status(200).send(data);
+      return reply.status(200).send({ data });
     } catch (error) {
       reply.send(error);
     }
