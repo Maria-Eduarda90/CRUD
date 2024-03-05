@@ -23,7 +23,7 @@ model Contacts {
   id     String @id @default(uuid())
   name   String
   email  String
-  phone  Int
+  phone  String
   userId String
   user   User   @relation(fields: [userId], references: [id])
 
