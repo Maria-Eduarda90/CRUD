@@ -33,4 +33,14 @@ export class ContactsUseCase {
 
     return contact;
   }
+
+  async listAllContacts(userId: string) {
+    const contacts = await this.contactsRepository.findAllContacts(userId);
+
+    if (contacts.length === 0) {
+      throw new Error("nenhum contato existente").message;
+    }
+
+    return contacts;
+  }
 }
