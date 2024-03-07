@@ -16,4 +16,5 @@ export interface ContactsCreate {
 export interface ContactsInterfaceRepository {
   create(data: ContactsCreate): Promise<Contacts>;
   findByEmailOrPhone(email: string, phone: string): Promise<Contacts | null>;
+  findAllContacts(userId: string): Promise<Contacts[]>;
 }
