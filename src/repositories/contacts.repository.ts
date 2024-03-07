@@ -46,4 +46,14 @@ export class ContactsRepository implements ContactsInterfaceRepository {
 
     return result || null;
   }
+
+  async findAllContacts(userId: string): Promise<Contacts[]> {
+    const result = await prisma.contacts.findMany({
+      where: {
+        userId,
+      },
+    });
+
+    return result;
+  }
 }
