@@ -43,4 +43,15 @@ export class ContactsUseCase {
 
     return contacts;
   }
+
+  async updateContact({ id, name, email, phone }: Contacts): Promise<Contacts> {
+    const data = await this.contactsRepository.updateContact({
+      id,
+      name,
+      email,
+      phone,
+    });
+
+    return data;
+  }
 }

@@ -8,6 +8,7 @@ export async function contactsRoutes(fastify: FastifyInstance) {
 
   try {
     fastify.addHook("preHandler", authMiddleware);
+
     fastify.post<{ Body: ContactsCreate; Params: { userId: string } }>(
       "/create",
       async (request, reply) => {
@@ -33,6 +34,20 @@ export async function contactsRoutes(fastify: FastifyInstance) {
         try {
           const data = await usecase.listAllContacts(userId);
           return reply.status(201).send(data);
+        } catch (err) {
+          reply.send(err);
+        }
+      }
+    );
+
+    fastify.put<{ Body: ContactsCreate; Params: { id: string } }>(
+      "/update/:id",
+      async (request, reply) => {
+        const { id } = request.params;
+        const { name, email, phone } = request.body;
+        try {
+          const data = await usecase.updateContact({ id, name, email, phone });
+          return reply.status(200).send(data);
         } catch (err) {
           reply.send(err);
         }
