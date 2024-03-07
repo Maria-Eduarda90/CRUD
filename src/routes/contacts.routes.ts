@@ -22,7 +22,19 @@ export async function contactsRoutes(fastify: FastifyInstance) {
           });
           return reply.status(201).send(data);
         } catch (err) {
-          reply.status(400).send();
+          reply.status(400).send(err);
+        }
+      }
+    );
+    fastify.get<{ Params: { userId: string } }>(
+      "/list",
+      async (request, reply) => {
+        const userId = request.params.userId;
+        try {
+          const data = await usecase.listAllContacts(userId);
+          return reply.status(201).send(data);
+        } catch (err) {
+          reply.send(err);
         }
       }
     );
