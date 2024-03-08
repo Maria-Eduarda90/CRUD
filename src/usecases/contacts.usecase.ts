@@ -54,4 +54,13 @@ export class ContactsUseCase {
 
     return data;
   }
+
+  async deleteContact(id: string): Promise<Object> {
+    const data = await this.contactsRepository.delete(id);
+
+    return {
+      contato: data,
+      message: "Contato excluido com sucesso",
+    };
+  }
 }

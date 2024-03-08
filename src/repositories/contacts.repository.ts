@@ -71,4 +71,14 @@ export class ContactsRepository implements ContactsInterfaceRepository {
 
     return result;
   }
+
+  async delete(id: string): Promise<Contacts> {
+    const result = await prisma.contacts.delete({
+      where: {
+        id,
+      },
+    });
+
+    return result;
+  }
 }

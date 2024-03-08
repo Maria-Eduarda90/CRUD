@@ -53,6 +53,22 @@ export async function contactsRoutes(fastify: FastifyInstance) {
         }
       }
     );
+
+    fastify.delete<{ Params: { id: string } }>(
+      "/delete/:id",
+      async (request, reply) => {
+        const { id } = request.params;
+        try {
+          const data = await usecase.deleteContact(id);
+          return reply.status(200).send(data);
+        } catch (err: any) {
+          if (err.code === "P2025") {
+            reply.status(400).send({ message: "Contato não existe" });
+          }
+          throw err;
+        }
+      }
+    );
   } catch (err) {
     console.log(err);
   }
